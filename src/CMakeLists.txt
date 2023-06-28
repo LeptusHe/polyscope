@@ -69,7 +69,7 @@ if("${POLYSCOPE_BACKEND_OPENGL3_GLFW}")
   else()
       # On Windows/Linux, use the glad openGL loader
 
-      list(APPEND BACKEND_LIBS glad)
+      list(APPEND BACKEND_LIBS polyscope::glad)
   endif()
       
   add_definitions(-DPOLYSCOPE_BACKEND_OPENGL3_GLFW_ENABLED)  
@@ -291,5 +291,5 @@ target_include_directories(polyscope PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../dep
 target_include_directories(polyscope PRIVATE "${BACKEND_INCLUDE_DIRS}")
         
 # Link settings
-target_link_libraries(polyscope PUBLIC imgui)
+target_link_libraries(polyscope PUBLIC polyscope::imgui)
 target_link_libraries(polyscope PRIVATE "${BACKEND_LIBS}" stb)

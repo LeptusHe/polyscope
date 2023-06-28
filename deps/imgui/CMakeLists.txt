@@ -16,21 +16,22 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STR
   endif()
 endif()
 
+set(imgui_li polyscope::imgui)
 
 if("${POLYSCOPE_BACKEND_OPENGL3_GLFW}")
 
   set(SRCS imgui/imgui.cpp imgui/imgui_draw.cpp imgui/imgui_widgets.cpp imgui/imgui_demo.cpp imgui/examples/imgui_impl_glfw.cpp imgui/examples/imgui_impl_opengl3.cpp)
 
   add_library(
-          imgui
+          polyscope_imgui
           ${SRCS}
           )
 
-  target_include_directories(imgui PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/imgui/")
-  target_include_directories(imgui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../glfw/include/")
-  target_include_directories(imgui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../glad/include/")
+  target_include_directories(polyscope_imgui PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/imgui/")
+  target_include_directories(polyscope_imgui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../glfw/include/")
+  target_include_directories(polyscope_imgui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../glad/include/")
   
-  target_link_libraries(imgui PRIVATE glfw)
+  target_link_libraries(polyscope_imgui PRIVATE glfw)
   
   if(APPLE)
       # On macOS, get openGL & friends from Frameworks; do not use GLAD at all
@@ -49,7 +50,7 @@ if("${POLYSCOPE_BACKEND_OPENGL3_GLFW}")
       # On Windows/Linux, use the glad openGL loader
 
       add_definitions(-DIMGUI_IMPL_OPENGL_LOADER_GLAD)
-      target_link_libraries(imgui PRIVATE glad)
+      target_link_libraries(polyscope_imgui PRIVATE glad)
   endif()
 
 elseif("${POLYSCOPE_BACKEND_OPENGL_MOCK}")
@@ -63,14 +64,14 @@ elseif("${POLYSCOPE_BACKEND_OPENGL_MOCK}")
   set(SRCS imgui/imgui.cpp imgui/imgui_draw.cpp imgui/imgui_widgets.cpp)
 
   add_library(
-          imgui
+          polyscope_imgui
           ${SRCS}
           )
 
-  target_include_directories(imgui PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/imgui/")
+  target_include_directories(polyscope_imgui PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/imgui/")
 
 endif()
 
 
-
-set_target_properties(imgui PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+set_target_properties(polyscope_imgui PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+add_library(polyscope::imgui ALIAS polyscope_imgui)

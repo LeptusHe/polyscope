@@ -16,7 +16,6 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STR
   endif()
 endif()
 
-set(imgui_li polyscope::imgui)
 
 if("${POLYSCOPE_BACKEND_OPENGL3_GLFW}")
 

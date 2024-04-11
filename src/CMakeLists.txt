@@ -292,4 +292,4 @@ target_include_directories(polyscope PRIVATE "${BACKEND_INCLUDE_DIRS}")
         
 # Link settings
 target_link_libraries(polyscope PUBLIC polyscope::imgui)
-target_link_libraries(polyscope PRIVATE "${BACKEND_LIBS}" stb)
+target_link_libraries(polyscope PRIVATE "${BACKEND_LIBS}" polyscope-stb)
